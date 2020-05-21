@@ -7,7 +7,10 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import json
 
-
+client_secret = input('Please enter your Client Secret Key: (WARNING: DO NOT SHARE THIS KEY WITH ANYONE!): ')
+client_id = input("Please Enter your Client ID here: ")
+user_id = input('Please Enter your User ID Here: ')
+playlist_id = input('Please Enter Playlist ID to get audio features for all tracks in playlist: ')
 def chunks(l, n):
     for i in range(0, len(l), n):
         yield list(l[i:i + n])
@@ -18,7 +21,7 @@ cid = """Your Client ID Here"""
 client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 sp.trace = False
-tracks = sp.user_playlist("217nkz5ceb65yipbxwbiacmeq", "3fwMqnOaHI3iOCjtbPkHnZ")
+tracks = sp.user_playlist(user=user_id,playlist_id=playlist_id)
 songs = tracks['tracks']['items']
 ids = [song['track']['id'] for song in songs]
 track_details = []
